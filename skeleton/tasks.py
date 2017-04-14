@@ -2,9 +2,10 @@ import os
 from invoke import task, run
 
 
-
 @task
 def build_docs(ctx):
+    """Builds html documentation and updates gh-pages branch.
+    """
     def git(cmd):
         return run('cd docs/build/html && git {0}'.format(cmd))
 
