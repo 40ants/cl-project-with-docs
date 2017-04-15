@@ -1,5 +1,5 @@
 =================
- <% @var name %>
+ cl-project-with-docs
 =================
 
 .. insert-your badges like that:
@@ -78,22 +78,18 @@ install some python libraries there. Command ``invoke build_docs``
 will build documentation and upload it to the GitHub, by replacing
 the content of the ``gh-pages`` branch.
 
-<%- @if author %>
 
 Authors
 =======
 
-* <% @var author %><% @if email %> (<% @var email %>)<% @endif %>
+* Alexander Artemenko
 
 Copyright
 =========
 
-Copyright (c) <%= (local-time:timestamp-year (local-time:now)) %> <% @var author %><% @if email %> (<% @var email %>)<% @endif %>
-<%- @endif %>
-<%- @if license %>
+Copyright (c) 2017 Alexander Artemenko
 
 License
 =======
 
-Licensed under the <% @var license %> License.
-<%- @endif %>
+Licensed under the BSD License.
