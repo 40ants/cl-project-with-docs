@@ -9,6 +9,7 @@
 (in-package :cl-project-with-docs-test-asd)
 
 (defsystem cl-project-with-docs-test
+  :version (:read-file-form "version.lisp-expr")
   :author "Alexander Artemenko"
   :license "BSD"
   :depends-on (:cl-project-with-docs

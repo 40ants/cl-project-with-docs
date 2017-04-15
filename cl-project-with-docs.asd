@@ -15,7 +15,7 @@
 (in-package :cl-project-with-docs-asd)
 
 (defsystem cl-project-with-docs
-  :version "0.1"
+  :version (:read-file-form "version.lisp-expr")
   :author "Alexander Artemenko"
   :license "BSD"
   :depends-on (:cl-project)
