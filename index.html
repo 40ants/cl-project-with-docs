@@ -100,11 +100,14 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">Welcome to cl-project-with-docs&#8217;s documentation!</a><ul>
-<li><a class="reference internal" href="#here-are-some-examples">Here are some examples</a><ul>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#how-to-use">How to use</a></li>
+<li><a class="reference internal" href="#how-to-build-documentation">How to build documentation</a></li>
+<li><a class="reference internal" href="#authors">Authors</a></li>
+<li><a class="reference internal" href="#copyright">Copyright</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
 <li><a class="reference internal" href="#contents">Contents</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -115,18 +118,121 @@
       
   <div class="section" id="welcome-to-cl-project-with-docs-s-documentation">
 <h1>Welcome to cl-project-with-docs&#8217;s documentation!<a class="headerlink" href="#welcome-to-cl-project-with-docs-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>This is an implementation of Hamcrest for Common Lisp.</p>
-<div class="section" id="here-are-some-examples">
-<h2>Here are some examples<a class="headerlink" href="#here-are-some-examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-common-lisp-repl"><div class="highlight"><pre><span></span><span class="gp">GIT&gt; </span><span class="p">(</span><span class="nv">assert-that</span>
-       <span class="nv">log-item</span>
-       <span class="p">(</span><span class="nv">has-plist-entries</span> <span class="ss">:|@message|</span> <span class="s">&quot;Some&quot;</span>
-                          <span class="ss">:|@timestamp|</span> <span class="nv">_</span><span class="p">)</span>
-       <span class="p">(</span><span class="nv">hasnt-plist-keys</span> <span class="ss">:|@fields|</span><span class="p">))</span><span class="go"></span>
+<p>This is a project skeleton generator which uses Sphinx and reStructured
+text to render nice and readable HTML documentation.</p>
+<p>It is based on Eitaro Fukamachi&#8217;s <a class="reference external" href="http://quickdocs.org/cl-project/">cl-project</a>, but provides a modified template
+with additional setup for documentation folder.</p>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>All documentation is in the reStructured text markup.</li>
+<li>Cross-reference between separate documents.</li>
+<li>Code snippets are highlighted.</li>
+<li>Automatic <code class="docutils literal"><span class="pre">gh-pages</span></code> update.</li>
+<li>Nice-looking theme.</li>
+<li>Integratin with Travis to run tests.</li>
+</ul>
+</div>
+<div class="section" id="how-to-use">
+<h2>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this headline">¶</a></h2>
+<p>Install it with quicklisp:</p>
+<div class="highlight-common-lisp-repl"><div class="highlight"><pre><span></span><span class="gp">TEST&gt; </span><span class="p">(</span><span class="nv">ql:quickload</span> <span class="ss">:cl-project-with-docs</span><span class="p">)</span><span class="go"></span>
+<span class="gp">CL-USER&gt; </span><span class="p">(</span><span class="nv">ql:quickload</span> <span class="ss">:cl-project-with-docs</span><span class="p">)</span><span class="go"></span>
+<span class="go">To load &quot;cl-project-with-docs&quot;:</span>
+<span class="go">  Load 1 ASDF system:</span>
+<span class="go">    cl-project-with-docs</span>
+<span class="go">; Loading &quot;cl-project-with-docs&quot;</span>
+<span class="go">..................................................</span>
+<span class="go">[package cl-emb]..................................</span>
+<span class="go">[package cl-emb-intern]...........................</span>
+<span class="go">[package bordeaux-threads]........................</span>
+<span class="go">[package cl-fad]..................................</span>
+<span class="go">[package path]....................................</span>
+<span class="go">[package local-time]..............................</span>
+<span class="go">[package cl-project.specials].....................</span>
+<span class="go">[package cl-project.io]...........................</span>
+<span class="go">[package cl-project.file].........................</span>
+<span class="go">[package cl-project.middleware]...................</span>
+<span class="go">[package cl-project.skeleton].....................</span>
+<span class="go">[package cl-project]..............................</span>
+<span class="go">[package cl-project-with-docs]</span>
+<span class="go">(:CL-PROJECT-WITH-DOCS)</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>While project is not in Quicklisp, you&#8217;ll
+have to clone it with:</p>
+<div class="last highlight-common-lisp"><div class="highlight"><pre><span></span><span class="nv">git</span> <span class="nv">clone</span> <span class="nv">https://github.com/40ants/cl-project-with-docs</span> <span class="nv">~/common-lisp/</span>
+</pre></div>
+</div>
+</div>
+<p>Then create a project like that:</p>
+<div class="highlight-common-lisp-repl"><div class="highlight"><pre><span></span><span class="gp">TEST&gt; </span><span class="p">(</span><span class="nv">cl-project-with-docs:make-project</span>
+       <span class="l l-Other">#P&quot;/tmp/my-great-project&quot;</span>
+       <span class="ss">:author</span> <span class="s">&quot;Alexander Artemenko&quot;</span>
+       <span class="ss">:description</span> <span class="s">&quot;Make Lisp great again!&quot;</span>
+       <span class="ss">:license</span> <span class="s">&quot;BSD&quot;</span><span class="p">)</span><span class="go"></span>
+<span class="go">writing /tmp/my-great-project/version.lisp-expr</span>
+<span class="go">writing /tmp/my-great-project/tasks.py</span>
+<span class="go">writing /tmp/my-great-project/my-great-project.asd</span>
+<span class="go">writing /tmp/my-great-project/my-great-project-test.asd</span>
+<span class="go">writing /tmp/my-great-project/README.rst</span>
+<span class="go">writing /tmp/my-great-project/ChangeLog.rst</span>
+<span class="go">writing /tmp/my-great-project/.travis.yml</span>
+<span class="go">writing /tmp/my-great-project/.gitignore</span>
+<span class="go">writing /tmp/my-great-project/docs/requirements.txt</span>
+<span class="go">writing /tmp/my-great-project/docs/requirements.in</span>
+<span class="go">writing /tmp/my-great-project/docs/Makefile</span>
+<span class="go">writing /tmp/my-great-project/docs/source/index.rst</span>
+<span class="go">writing /tmp/my-great-project/docs/source/conf.py</span>
+<span class="go">writing /tmp/my-great-project/docs/source/changelog.rst</span>
+<span class="go">writing /tmp/my-great-project/docs/source/api.rst</span>
+<span class="go">writing /tmp/my-great-project/docs/source/_static/.keep</span>
+<span class="go">writing /tmp/my-great-project/src/my-great-project.lisp</span>
+<span class="go">writing /tmp/my-great-project/t/my-great-project.lisp</span>
+<span class="go">T</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-to-build-documentation">
+<h2>How to build documentation<a class="headerlink" href="#how-to-build-documentation" title="Permalink to this headline">¶</a></h2>
+<p>To build documentation, you&#8217;ll need a Sphinx. It is
+a documentaion building tool written in Python.</p>
+<p>To install it, you need a virtualenv. Read
+this instructions
+<a class="reference external" href="https://virtualenv.pypa.io/en/stable/installation/#installation">how to install it</a>.</p>
+<p>Also, you&#8217;ll need a <a class="reference external" href="http://www.cliki.net/CL-Launch">cl-launch</a>.
+It is used by documentation tool to run a script which extracts
+documentation strings from lisp systems.</p>
+<p>Run these commands to build documentation:</p>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span></span><span class="nv">virtualenv</span> <span class="nv">env</span>
+<span class="nv">source</span> <span class="nv">env/bin/activate</span>
+<span class="nv">pip</span> <span class="nv">install</span> <span class="nv">-r</span> <span class="nv">docs/requirements.txt</span>
+<span class="nv">invoke</span> <span class="nv">build_docs</span>
+</pre></div>
+</div>
+<p>These commands will create a virtual environment and
+install some python libraries there. Command <code class="docutils literal"><span class="pre">invoke</span> <span class="pre">build_docs</span></code>
+will build documentation and upload it to the GitHub, by replacing
+the content of the <code class="docutils literal"><span class="pre">gh-pages</span></code> branch.</p>
+</div>
+<div class="section" id="authors">
+<h2>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Alexander Artemenko</li>
+</ul>
+</div>
+<div class="section" id="copyright">
+<h2>Copyright<a class="headerlink" href="#copyright" title="Permalink to this headline">¶</a></h2>
+<p>Copyright (c) 2017 Alexander Artemenko</p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>Licensed under the BSD License.</p>
+</div>
 <div class="section" id="contents">
-<h3>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h3>
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">ChangeLog</a><ul>
@@ -137,13 +243,12 @@
 </div>
 </div>
 <div class="section" id="indices-and-tables">
-<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
 <li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
-</div>
 </div>
 </div>
 
