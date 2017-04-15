@@ -6,7 +6,6 @@
 (in-package :<% @var name %>)
 
 
-(in-package :test)
 (defun foo (a b)
   "Prints its arguments as a list.
 

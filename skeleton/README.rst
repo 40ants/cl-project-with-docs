@@ -1,26 +1,26 @@
-=============
- cl-hamcrest
-=============
+=================
+ <% @var name %>
+=================
+
+.. insert-your badges like that:
 
 .. image:: https://travis-ci.org/40ants/cl-hamcrest.svg?branch=master
     :target: https://travis-ci.org/40ants/cl-hamcrest
 
+.. Everything starting from this commit will be inserted into the
+   index page of the HTML documentation.
 .. include-from
 
-It is implementation of `Hamcrest`_ idea in Common Lisp.
+Give some introduction.
 
-It simplifes unittests and make them more readable. Hamcrest uses
-idea of pattern-matching, to construct matchers from different pieces and
-to apply them to the data.
+Reasoning
+=========
 
-Why not pattern-matching library?
-=================================
+Explain why this project so outstanding and why it
+was created.
 
-You may ask: "Why dont use a pattern-matching library, like `Optima`_?"
-
-Here is another example from another library ``log4cl-json``, where I want
-to check that some fields in plist have special values and other key is not
-present. Here is the data:
+You can give some examples. This is how common lisp
+code should be formatted:
 
 .. code-block:: common-lisp
 
@@ -30,146 +30,50 @@ present. Here is the data:
                       ;; shouldn't be here
                       :|@fields| nil))
 
-With `Optima`_ I could write this code to match the data:
+And this is how you can provide REPL examples:
 
-.. code-block:: common-lisp
+.. code-block:: common-lisp-repl
 
-   (ok (ematch
-         log-item
-       ((and (guard (property :|@message| m)
-                    (equal m "Some"))
-             (property :|@timestamp| _)
-             (not (property :|@fields| _)))
-        t))
-     "Log entry has message, timestamp, but not fields")
-
-But error message will be quite cumbersome:
-
-.. code-block:: none
-
-  × Aborted due to an error in subtest "Simple match"
-    Raised an error Can't match ((:|@fields| NIL :|@timestamp|
-                                  "2017-01-03T16:42:00.991444Z" :|@message|
-                                  "Some")) with ((COMMON-LISP:AND
-                                                  (GUARD
-                                                   (PROPERTY :|@message| M)
-                                                   (EQUAL M "Some"))
-                                                  (PROPERTY :|@timestamp|
-                                                   _)
-                                                  (NOT
-                                                   (PROPERTY :|@fields|
-                                                    _)))). (expected: :NON-ERROR)
-
-
-CL-HAMCREST is more concise and clear
--------------------------------------
-
-With ``cl-hamcrest`` test becomes more readable:
-
-.. code-block:: common-lisp
-
-   (assert-that
-         log-item
-         (has-plist-entries :|@message| "Some"
-                            :|@timestamp| _)
-         (hasnt-plist-keys :|@fields|))
-
-As well, as output about the failure:
-
-.. code-block:: none
-
-  × Key :|@fields| is present in object, but shouldn't
-
-That is because ``cl-hamcrest`` tracks the context and works
-together with testing framework, to output all information
-to let you understand where the problem is.
-
-Why not just use Prove's assertions?
-------------------------------------
-
-To draw a full picture, here is test, written in plain Prove's
-assertions:
-
-.. code-block:: common-lisp
-
-   (ok (member :|@message| log-item))
-   (is (getf log-item :|@message|)
-       "Some")
-   (ok (member :|@timestamp| log-item))
-   (ok (not (member :|@fields| log-item)))
-
-And it's output:
-
-.. code-block:: none
-
-   ✓ (:|@message| "Some") is expected to be T 
-   ✓ "Some" is expected to be "Some" 
-   ✓ (:|@timestamp| "2017-01-03T16:57:17.988810Z" :|@message| "Some") is expected to be T 
-   × NIL is expected to be T 
-
-is not as clear, if you'll try to figure out
-what does ``NIL is expected to be T`` mean.
-
-Description of all supported matchers, you can `find in the
-documentation <http://cl-hamcrest.40ants.com>`_.
+   TEST> (format nil "Blah minor: ~a"
+                     100500)
+   "Blah minor: 100500"
 
 Roadmap
 =======
 
-* Logical matchers:
+Provide a Roadmap.
 
-  - ``all-of`` – rename ``has-all``.
-  - ``any-of`` – Matches if any of the given matchers evaluate to True.
-  - ``is-not`` – Inverts the given matcher to its logical negation (think if
-    we need it, and how to show the results, here are results
-    how it works `in PyHamcrest <https://gist.github.com/svetlyak40wt/fbe480384e9e3f75b10523aa0b4fb6ce>`_
-    – it just sees that matcher returned True and raises Assertion error with full object's content and
-    matcher's description with prepended 'not' particle).
-
-* Object matchers:
-
-  - Add ``hasnt-some-keys`` matchers, corresponding to
-    ``has-some-entries``.
-  - Make ``has-alist-entries`` work with keys other than keyword
-    right now it uses `eql` to compare keys.
-
-* Sequence matchers:
-
-  - ``is-in`` – Matches if evaluated object is present in a given sequence.
-  - ``has-items`` – Matches if all of the given matchers are satisfied by any elements of the sequence.
-  - ``only-contains`` – Matches if each element of sequence satisfies
-    any of the given matchers.
-
-* Other features:
-
-  - Use uniq CommonLisp feature to restart signaled conditions to collect
-    all problems with data when there are few problems with keys.
-
-.. _Hamcrest: http://hamcrest.org
-.. _Optima: http://quickdocs.org/optima/
-
+.. Everything after this comment will be omitted from HTML docs.
 .. include-to
 
 Building Documentation
 ======================
 
-Requirements
-------------
+Provide instruction how to build or use your library.
 
-Python packages
-~~~~~~~~~~~~~~~
+How to build documentation
+--------------------------
 
-sphinx
-sphinxcontrib-cldomain (https://github.com/russell/sphinxcontrib-cldomain)
-pygments-cl-repl
-sphinx-bootstrap-theme
+To build documentation, you need a Sphinx. It is
+documentaion building tool written in Python.
 
-Lisp
-~~~~
+To install it, you need a virtualenv. Read
+this instructions
+`how to install it
+<https://virtualenv.pypa.io/en/stable/installation/#installation>`_.
 
-cl-launch (http://www.cliki.net/CL-Launch)
+Also, you'll need a `cl-launch <http://www.cliki.net/CL-Launch>`_.
+It is used by documentation tool to run a script which extracts
+documentation strings from lisp systems.
 
-To build
---------
+Run these commands to build documentation::
 
-cd docs && make html
+  virtualenv env
+  source env/bin/activate
+  pip install -r docs/requirements.txt
+  invoke build_docs
+
+These commands will create a virtual environment and
+install some python libraries there. Command ``invoke build_docs``
+will build documentation and upload it to the GitHub, by replacing
+the content of the ``gh-pages`` branch.
