@@ -68,7 +68,7 @@ documentation strings from lisp systems.
 
 Run these commands to build documentation::
 
-  virtualenv env
+  virtualenv --python python2.7 env
   source env/bin/activate
   pip install -r docs/requirements.txt
   invoke build_docs
