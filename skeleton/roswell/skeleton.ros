@@ -1,0 +1,45 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp (ql:quickload '(<% @var name %>
+                              defmain)
+                            :silent t))
+
+(defpackage :ros.script.<% @var name %>
+   (:use :cl)
+   (:import-from #:defmain
+                 #:defmain))
+(in-package :ros.script.<% @var name %>)
+
+
+(defun analyze (repository &key log token)
+  (declare (ignorable log token))
+  ;; Add some real code here
+  (format t "Analizing ~A~%" repository))
+
+
+(defmain main ((version "Show program version and exit."
+                      :flag t)
+               (log   "Filename to write log to.")
+               (token "GitHub personal access token."
+                      :env-var "TOKEN")
+               &rest repository)
+  "Utility to analyze github repositories."
+
+  (when version
+    (let* ((system (asdf:find-system :<% @var name %>))
+           (version (asdf:component-version system)))
+      (format t "Version: ~A~%" version)
+      (uiop:quit 0)))
+
+  ;; Making real work
+  (loop for repo in repository
+        do (analyze repo
+                    :log log
+                    :token token)))
+
+;;; vim: set ft=lisp lisp:
