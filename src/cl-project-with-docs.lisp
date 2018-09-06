@@ -1,4 +1,3 @@
-(in-package :cl-user)
 (defpackage cl-project-with-docs
   (:use :cl)
   (:export
