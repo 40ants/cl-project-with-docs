@@ -2,12 +2,11 @@
  cl-project-with-docs
 ======================
 
-.. image:: https://travis-ci.org/40ants/cl-project-with-docs.svg?branch=master
-    :target: https://travis-ci.org/40ants/cl-project-with-docs
-
 .. Everything starting from this commit will be inserted into the
    index page of the HTML documentation.
 .. include-from
+
+**Warning! THIS PROJECT IS NOT SUPPORTED ANYMORE. USE https://40ants.com/project-templates/ INSTEAD.**
 
 This is a project skeleton generator which uses Sphinx and reStructured
 text to render nice and readable HTML documentation.
